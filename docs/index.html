@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MeMo</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
   <h1>MeMo</h1>
-  <section>
+  <button id="addBtn">add</button>
+  <hr>
+
+  <!-- <section>
     <input 
     id = "titleInput"
     type="text"
@@ -21,7 +26,7 @@
     <br><br>
     <button id = "savebtn">save</button>
     
-    <hr>
+    <hr> -->
 
     <section>
       <h2>List</h2>
@@ -36,7 +41,24 @@
         NO MEMO
       </div>
     </section>
-    <script src="./script.js"></script>
-  </section>
+
+    <div id="modal" class="hidden">
+      <h2>Memo Form</h2>
+      <input 
+      id = "titleInput"
+      type="text"
+      placeholder="Title...">
+      <br><br>
+      <textarea 
+      id ="contentInput"
+      type="text"
+      placeholder="Content...">
+      </textarea>
+      <br><br>
+      <button id = "savebtn">save</button>
+      <button id = "cancelBtn">cancel</button>
+    </div>
+   </section>
+  <script src="./script.js"></script>
 </body>
 </html>

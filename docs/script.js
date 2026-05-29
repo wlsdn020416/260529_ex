@@ -3,8 +3,28 @@ const contentInput = document.querySelector("#contentInput");
 const savebtn = document.querySelector("#savebtn");
 const memoList = document.querySelector("#memoList");
 const memoViewer = document.querySelector("#memoViewer");
+const addBtn = document.querySelector("#addBtn");
+const modal = document.querySelector('#modal');
+const cancelBtn = document.querySelector("#cancelBtn");
+
 const STORAGE_KEY = "memo-app-v1";
 const saved = localStorage.getItem(STORAGE_KEY);
+
+addBtn.addEventListener("click",()=>{
+    editingMemo = null;
+    titleInput.value = "";
+    contentInput.value = "";
+    updateSaveButton();
+    modal.classList.remove("hidden");
+});
+cancelBtn.addEventListener("click",()=>{
+    modal.classList.add("hidden");
+    titleInput.value = "";
+    contentInput.value = "";
+    editingMemo =null;
+    updateSaveButton();
+});
+
 
 let memos = [];
 let editingMemo = null;
@@ -12,10 +32,7 @@ let editingMemo = null;
 if(saved){
     memos = JSON.parse(saved);
 }
-console.log(memos);
-
 savebtn.addEventListener("click",() => {
-    
     const title = titleInput.value;
     const content = contentInput.value;
     if(title.trim()===""||content.trim()===""){
@@ -26,7 +43,7 @@ savebtn.addEventListener("click",() => {
         editingMemo.content = content;
 
         editingMemo = null;
-
+        updateSaveButton();
         setItem();
         renderAll();
     }else {
@@ -34,12 +51,12 @@ savebtn.addEventListener("click",() => {
             title : title,
             content : content
         };
-        memos.push(memo);
+        memos.unshift(memo);
         setItem();
-        renderMemo(memo);
+        renderAll();
     }
 
-
+    modal.classList.add("hidden");
     titleInput.value = "";
     contentInput.value = "";
 });
@@ -67,17 +84,19 @@ function renderMemo(memo){
         
         titleInput.value = memo.title;
         contentInput.value = memo.content;
-    
+        modal.classList.remove("hidden");
         editingMemo = memo;
+        updateSaveButton();
     })
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "delete";
     deleteBtn.addEventListener("click",() =>{
+        
         memos.splice(memos.indexOf(memo),1);
-
         setItem();
         li.remove();
+        memoViewer.textContent = "NO MEMO";
     });
     
     li.append(openBtn);
@@ -94,3 +113,11 @@ function renderAll(){
     renderMemo(memo);
 });
 }
+function updateSaveButton(){
+    if(editingMemo){
+            savebtn.textContent = "edit";
+        }else{
+            savebtn.textContent = "save";
+        }
+}
+

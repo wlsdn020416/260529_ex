@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>callback difficult</title>
+</head>
+<body>
+    <script>
+        //1. callback hell
+        function f1(){
+            console.log("작업1")
+        }
+        function f2(){
+            console.log("작업2")
+        }
+        function f3(){
+            console.log("작업3")
+        }
+        setTimeout(() => {
+            f1();
+        },Math.random()*1000);
+        setTimeout(() => {
+            f2();
+        },Math.random()*1000);
+        setTimeout(() => {
+            f3();
+        },Math.random()*1000);
+        //2. 예외처리
+        try{
+            setTimeout(() => {
+                console.log("err");
+                throw new Error("err 발생");
+                f1();
+                console.log("도달 x");
+            });
+            console.log("아무문제 없네요");
+        }catch{
+            console.log("잡았다");
+        }
+    </script>
+</body>
+</html>

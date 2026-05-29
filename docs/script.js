@@ -138,6 +138,7 @@ function renderMemo(memo){
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "delete";
+    deleteBtn.className = "delete-btn";
     deleteBtn.addEventListener("click",(event) =>{
         event.stopPropagation();
         

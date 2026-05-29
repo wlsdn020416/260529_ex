@@ -2,6 +2,26 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #2d2a2e;
+  --panel: #343136;
+  --panel-soft: #2f2c31;
+  --card: #403e41;
+  --card-hover: #4a474d;
+  --border: #5b5860;
+  --border-soft: #49464d;
+  --text: #d6d2ce;
+  --text-muted: #b9b4ad;
+  --text-soft: #8f8a86;
+  --accent: #ffd866;
+  --accent-hover: #ffe48f;
+  --pink: #ff6188;
+  --green: #a9dc76;
+  --cyan: #78dce8;
+  --danger: #ff6188;
+  --shadow: rgba(0, 0, 0, 0.34);
+}
+
 body {
   display: grid;
   grid-template-columns: 30% 70%;
@@ -9,16 +29,34 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
-  color: #2f3437;
-  background: #ffffff;
+  color: var(--text);
+  background: var(--bg);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+::placeholder {
+  color: var(--text-soft);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--panel-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--panel-soft);
+  border-radius: 999px;
+  background: var(--border);
 }
 
 h1 {
   align-self: center;
   margin: 0;
   padding: 0 28px;
-  color: #1f2326;
+  color: var(--pink);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0;
@@ -51,16 +89,16 @@ body > hr {
 body > section {
   min-height: 0;
   padding: 24px 28px;
-  border-top: 1px solid #eeeeec;
-  background: #ffffff;
+  border-top: 1px solid var(--border-soft);
+  background: var(--panel);
 }
 
 body > section:first-of-type {
   grid-column: 1;
   grid-row: 2;
   overflow-y: auto;
-  border-right: 1px solid #eeeeec;
-  background: #fbfbfa;
+  border-right: 1px solid var(--border-soft);
+  background: var(--panel-soft);
 }
 
 body > section:nth-of-type(2) {
@@ -71,19 +109,19 @@ body > section:nth-of-type(2) {
 
 h2 {
   margin: 0 0 18px;
-  color: #5f6368;
+  color: var(--green);
   font-size: 14px;
   font-weight: 600;
 }
 
 body > section:first-of-type h2 {
   padding-bottom: 14px;
-  border-bottom: 1px solid #eeeeec;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 body > section:nth-of-type(2) h2 {
   padding-bottom: 14px;
-  border-bottom: 1px solid #eeeeec;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 body > section:nth-of-type(2).memo-content-open h2 {
@@ -106,17 +144,17 @@ body > section:nth-of-type(2).memo-content-open h2 {
   min-height: 76px;
   padding: 14px;
   overflow: hidden;
-  border: 1px solid #e7e7e5;
+  border: 1px solid var(--border-soft);
   border-radius: 8px;
-  color: #2f3437;
-  background: #ffffff;
+  color: var(--text);
+  background: var(--card);
   font-size: 15px;
   cursor: pointer;
   transition: background-color 150ms ease;
 }
 
 #memoList li:hover {
-  background: #f3f3f1;
+  background: var(--card-hover);
 }
 
 .memo-header {
@@ -128,7 +166,7 @@ body > section:nth-of-type(2).memo-content-open h2 {
 
 .memo-title {
   min-width: 0;
-  color: #2f3437;
+  color: var(--cyan);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
@@ -141,7 +179,7 @@ body > section:nth-of-type(2).memo-content-open h2 {
   height: 1px;
   margin: 0;
   border: 0;
-  background: #eeeeec;
+  background: var(--border-soft);
 }
 
 #memoList li.menu-open .memo-divider {
@@ -164,15 +202,16 @@ body > section:nth-of-type(2).memo-content-open h2 {
   padding: 0;
   font-size: 20px;
   line-height: 1;
+  color: var(--pink);
 }
 
 button {
   height: 34px;
   padding: 0 12px;
-  border: 1px solid #dededb;
+  border: 1px solid rgba(255, 216, 102, 0.48);
   border-radius: 7px;
-  color: #37352f;
-  background: #ffffff;
+  color: var(--accent);
+  background: rgba(255, 216, 102, 0.08);
   font: inherit;
   font-size: 13px;
   font-weight: 500;
@@ -180,28 +219,42 @@ button {
 }
 
 button:hover {
-  background: #f6f6f4;
+  color: var(--bg);
+  border-color: var(--accent);
+  background: var(--accent);
 }
 
 button:focus-visible {
-  outline: 2px solid #b8b8b5;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 button:active {
-  background: #eeeeec;
+  background: var(--accent-hover);
+}
+
+.delete-btn {
+  border-color: rgba(255, 97, 136, 0.48);
+  color: var(--pink);
+  background: rgba(255, 97, 136, 0.08);
+}
+
+.delete-btn:hover {
+  border-color: var(--pink);
+  color: var(--bg);
+  background: var(--pink);
 }
 
 #memoViewer {
   padding: 8px 0;
-  color: #37352f;
+  color: var(--text-muted);
   font-size: 17px;
   line-height: 1.7;
 }
 
 .viewer-title {
   margin: 0;
-  color: #2f3437;
+  color: var(--green);
   font-size: 28px;
   font-weight: 700;
   line-height: 1.4;
@@ -214,7 +267,7 @@ button:active {
   height: 1px;
   margin: 18px 0 22px;
   border: 0;
-  background: #eeeeec;
+  background: var(--border-soft);
 }
 
 .viewer-content {
@@ -229,12 +282,12 @@ button:active {
   display: block;
   width: 520px;
   padding: 28px;
-  border: 1px solid #e5e5e2;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--panel);
   box-shadow:
-    0 0 0 100vmax rgba(15, 15, 15, 0.28),
-    0 12px 36px rgba(15, 15, 15, 0.12);
+    0 0 0 100vmax rgba(0, 0, 0, 0.48),
+    0 18px 44px var(--shadow);
   transform: translate(-50%, -50%);
 }
 
@@ -248,17 +301,17 @@ button:active {
 
 #modal h2 {
   margin-bottom: 16px;
-  color: #2f3437;
+  color: var(--pink);
   font-size: 18px;
 }
 
 #titleInput,
 #contentInput {
   width: 100%;
-  border: 1px solid #ddddda;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  color: #2f3437;
-  background: #fbfbfa;
+  color: var(--text);
+  background: var(--bg);
   font: inherit;
   outline: none;
 }
@@ -281,8 +334,8 @@ button:active {
 
 #titleInput:focus,
 #contentInput:focus {
-  border-color: #b9b9b6;
-  background: #ffffff;
+  border-color: var(--accent);
+  background: var(--panel-soft);
 }
 
 #savebtn,
@@ -291,11 +344,23 @@ button:active {
 }
 
 #savebtn {
-  background: #2f3437;
-  border-color: #2f3437;
-  color: #ffffff;
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--bg);
 }
 
 #savebtn:hover {
-  background: #454a4d;
+  background: var(--accent);
+}
+
+#cancelBtn {
+  border-color: rgba(255, 97, 136, 0.48);
+  color: var(--pink);
+  background: rgba(255, 97, 136, 0.08);
+}
+
+#cancelBtn:hover {
+  border-color: var(--pink);
+  color: var(--bg);
+  background: var(--pink);
 }

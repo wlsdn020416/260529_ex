@@ -3,6 +3,7 @@ const contentInput = document.querySelector("#contentInput");
 const savebtn = document.querySelector("#savebtn");
 const memoList = document.querySelector("#memoList");
 const memoViewer = document.querySelector("#memoViewer");
+const contentSection = memoViewer.parentElement;
 const addBtn = document.querySelector("#addBtn");
 const modal = document.querySelector('#modal');
 const cancelBtn = document.querySelector("#cancelBtn");
@@ -42,10 +43,12 @@ savebtn.addEventListener("click",() => {
         editingMemo.title = title;
         editingMemo.content = content;
 
+        const editedMemo = editingMemo;
         editingMemo = null;
         updateSaveButton();
         setItem();
         renderAll();
+        renderMemoViewer(editedMemo);
     }else {
         const memo = {
             title : title,
@@ -68,28 +71,63 @@ function setItem(){
         );
 }   
 
+function renderMemoViewer(memo){
+    contentSection.classList.add("memo-content-open");
+    memoViewer.innerHTML = "";
+
+    const viewerTitle = document.createElement("h3");
+    viewerTitle.className = "viewer-title";
+    viewerTitle.textContent = memo.title;
+
+    const viewerDivider = document.createElement("hr");
+    viewerDivider.className = "viewer-divider";
+
+    const viewerContent = document.createElement("div");
+    viewerContent.className = "viewer-content";
+    viewerContent.textContent = memo.content;
+
+    memoViewer.append(viewerTitle);
+    memoViewer.append(viewerDivider);
+    memoViewer.append(viewerContent);
+}
+
+function renderNoMemo(){
+    contentSection.classList.remove("memo-content-open");
+    memoViewer.textContent = "NO MEMO";
+}
+
 function renderMemo(memo){
     const li = document.createElement("li");
+    li.addEventListener("click",()=>{
+        renderMemoViewer(memo);
+    });
+
+    const memoHeader = document.createElement("div");
+    memoHeader.className = "memo-header";
 
     const memoTitle = document.createElement("div");
     memoTitle.className = "memo-title";
     memoTitle.textContent = memo.title;
+
+    const menuBtn = document.createElement("button");
+    menuBtn.className = "memo-menu-btn";
+    menuBtn.textContent = "⋮";
+    menuBtn.addEventListener("click",(event)=>{
+        event.stopPropagation();
+        li.classList.toggle("menu-open");
+        memoActions.classList.toggle("open");
+    });
 
     const divider = document.createElement("hr");
     divider.className = "memo-divider";
 
     const memoActions = document.createElement("div");
     memoActions.className = "memo-actions";
-
-    const openBtn = document.createElement("button");
-    openBtn.textContent = "open";
-    openBtn.addEventListener("click",()=>{
-        memoViewer.textContent = memo.content;
-    });
     
     const editBtn = document.createElement("button");
     editBtn.textContent = "edit";
-    editBtn.addEventListener("click",()=>{
+    editBtn.addEventListener("click",(event)=>{
+        event.stopPropagation();
         
         titleInput.value = memo.title;
         contentInput.value = memo.content;
@@ -100,19 +138,22 @@ function renderMemo(memo){
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "delete";
-    deleteBtn.addEventListener("click",() =>{
+    deleteBtn.addEventListener("click",(event) =>{
+        event.stopPropagation();
         
         memos.splice(memos.indexOf(memo),1);
         setItem();
         li.remove();
-        memoViewer.textContent = "NO MEMO";
+        renderNoMemo();
     });
     
-    memoActions.append(openBtn);
     memoActions.append(editBtn);
     memoActions.append(deleteBtn);
 
-    li.append(memoTitle);
+    memoHeader.append(memoTitle);
+    memoHeader.append(menuBtn);
+
+    li.append(memoHeader);
     li.append(divider);
     li.append(memoActions);
     memoList.append(li);

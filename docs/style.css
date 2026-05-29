@@ -25,9 +25,23 @@ h1 {
 }
 
 #addBtn {
-  align-self: center;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
   justify-self: end;
-  margin-right: 28px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 21px 28px 10px 0;
+  font-size: 0;
+}
+
+#addBtn::before {
+  content: "+";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
 }
 
 body > hr {
@@ -62,6 +76,20 @@ h2 {
   font-weight: 600;
 }
 
+body > section:first-of-type h2 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eeeeec;
+}
+
+body > section:nth-of-type(2) h2 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eeeeec;
+}
+
+body > section:nth-of-type(2).memo-content-open h2 {
+  display: none;
+}
+
 #memoList {
   display: flex;
   flex-direction: column;
@@ -75,7 +103,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 94px;
+  min-height: 76px;
   padding: 14px;
   overflow: hidden;
   border: 1px solid #e7e7e5;
@@ -83,11 +111,19 @@ h2 {
   color: #2f3437;
   background: #ffffff;
   font-size: 15px;
+  cursor: pointer;
   transition: background-color 150ms ease;
 }
 
 #memoList li:hover {
   background: #f3f3f1;
+}
+
+.memo-header {
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  align-items: start;
+  gap: 10px;
 }
 
 .memo-title {
@@ -100,7 +136,7 @@ h2 {
 }
 
 .memo-divider {
-  display: block;
+  display: none;
   width: 100%;
   height: 1px;
   margin: 0;
@@ -108,11 +144,26 @@ h2 {
   background: #eeeeec;
 }
 
+#memoList li.menu-open .memo-divider {
+  display: block;
+}
+
 .memo-actions {
-  display: flex;
+  display: none;
   gap: 8px;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.memo-actions.open {
+  display: flex;
+}
+
+.memo-menu-btn {
+  width: 34px;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
 }
 
 button {
@@ -146,6 +197,27 @@ button:active {
   color: #37352f;
   font-size: 17px;
   line-height: 1.7;
+}
+
+.viewer-title {
+  margin: 0;
+  color: #2f3437;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.viewer-divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 18px 0 22px;
+  border: 0;
+  background: #eeeeec;
+}
+
+.viewer-content {
   white-space: pre-wrap;
 }
 

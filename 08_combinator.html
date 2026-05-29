@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      const r1 = Promise.resolve().then(() => "r1");
+      const r2 = Promise.reject(new Error("r2"));
+      function r3() {
+        return new Promise((resolve) => {
+          return setTimeout(() => resolve("r3"), 1000);
+        });
+      }
+      function r4() {
+        return new Promise((resolve) => {
+          return setTimeout(() => {
+            throw new Error("r4");
+          }, 1000);
+        });
+      }
+      // Promise.all
+      Promise.all([r1, r2, r3(), r4()]) // 실패 있으면 X
+        .then((v) => {
+          console.log("성공 1");
+          console.log(...v);
+        })
+        .catch((err) => {
+          // 실패를 발생시킨 가장 앞선 것을 가져옴
+          console.log("실패 1");
+          console.log(err);
+        });
+      Promise.all([r1, r3()]) // 둘다 성공
+        .then((v) => {
+          console.log("성공 2");
+          console.log(...v);
+        }) // 모든 promise 결과를 가져옴
+        .catch((err) => {
+          console.log("실패 2");
+          console.log(err);
+        });
+    </script>
+    </script>
+</body>
+</html>

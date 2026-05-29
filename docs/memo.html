@@ -45,6 +45,19 @@
         /* margin, padding : 위 아래 */
         /* margin, padding : 위 오 아 왼 */
       }
+      #memoList{
+        gap: 8px;
+        padding: 8px;
+        flex-wrap: wrap;
+      }
+      #memoList div{
+        width: 240px;
+        height: 160px;
+        border: 1px solid gainsboro;
+        border-radius: 8px;
+        padding: 8px;
+        background-color: azure;
+      }
     </style>
   </head>
   <body>
@@ -52,26 +65,64 @@
       <section id="container">
         <h1 class = "center">MeMo</h1>
         <form id="memoWriter" class="center">
-          <textarea name="memo"></textarea>
+          <textarea name="memo" required></textarea>
           <button>submit</button>
         </form>
       </section>
-      <section id = "memoList">
+      <section id = "memoList" class = "center">
         <!-- 작성된 메모 배치 -->
       </section>
     </section>
     <script>
-      document.addEventListener("DOMContentLoaded");
+      document.addEventListener("DOMContentLoaded", main);
 
+      // DOM 요소
       const memoWriter = document.querySelector("#memoWriter");
-      //entry point
-      function main(){
-        console.logg("DOM Loading...");
+      const memoList = document.querySelector("#memoList");
+
+      // 진입점. entrypoint
+      function main() {
+        console.log("DOM 로딩 완료");
         memoWriter.addEventListener("submit", memoWriterHandler);
       }
-      
-      function memoWriterHandler(event){
+      // 1. 일단 함수표현식으로 타입추론을 하면서 작성한다음에
+      // 2. 나중에 꺼내서 아래에 배치
+      function memoWriterHandler(event) {
+        // form의 기본 이벤트를 금지/정지 시킨다
         event.preventDefault();
+        console.log("form 로직 시작");
+        const formData = new FormData(event.target);
+        // console.log(formData);
+        console.log(...formData);
+        const memoText = formData.get("memo");
+        //LocalStorage 사용하여 영속성 취득
+        saveMemo(memoText);
+
+        const memoBox = document.createElement("div");
+        memoBox.textContent = formData.get("memo");
+        memoList.append(memoBox);
+      }
+      function saveMemo(memoText) {
+        // 가장 최근 메모 1개만 저장하겠다
+        // localStorage.setItem("memo", memoText);
+        // localStorage.setItem("memo", []); // 삭제할 때 불편
+        const prevMemo = localStorage.getItem("memo") ?? {};
+        let memoObj;
+        try {
+          // JSON text -> 객체
+          memoObj = JSON.parse(prevMemo);
+          // localStorage -> origin 공유
+        } catch (err) {
+          console.log(err);
+          memoObj = {};
+        }
+        // 현재 시간을 숫자로 표시한 값
+        const timeKey = Date.now();
+        memoObj[timeKey] = memoText;
+        console.log(memoObj);
+        // localStorage는 문자열 key, value
+        // 제대로 된 문자열 '변환' -> JSON.stringify, parse
+        localStorage.setItem("memo", JSON.stringify(memoObj));
       }
 
     </script>

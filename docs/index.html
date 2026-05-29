@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memo</title>
     <style>
-      * {
+      *{
+        box-sizing: border-box;
+      }      
+      body {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
-    </style>
-  </head>
-  <body>
-    <div
-      style="
+      #container {
         width: 100vw;
         height: 100vh;
         display: flex;
@@ -22,13 +20,32 @@
         justify-content: center;
         align-items: center;
         gap: 12px;
-      "
-    >
+
+        /* background-image: url("./img/bg.jpg");
+        background-size: cover;
+        background-position: center; */
+        /* todo : 텍스트 버튼 잘보이게 */
+      }
+    </style>
+  </head>
+  <body>
+    <div
+    id = "container">
       <h1>Welcome Memo!</h1>
-      <a href="memo.html">
-      <button style="padding: 12px">메모하러 가기</button>
-    </a>
+      <button id = "btn" style="padding: 12px">start</button>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", main);
+
+      const container = document.querySelector("#container");
+      const button = document.querySelector("#container > button");
+      function main(){
+        console.log("DOM loading...");
+        button.addEventListener("cilck",() => {
+          location.href = "memo.html";
+        })
+      }
+    </script>
     
   </body>
 </html>

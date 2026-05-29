@@ -38,10 +38,10 @@
       document.addEventListener("DOMContentLoaded", main);
 
       const container = document.querySelector("#container");
-      const button = document.querySelector("#container > button");
+      const button = document.querySelector("#container > #btn");
       function main(){
         console.log("DOM loading...");
-        button.addEventListener("cilck",() => {
+        button.addEventListener("click",() => {
           location.href = "memo.html";
         })
       }

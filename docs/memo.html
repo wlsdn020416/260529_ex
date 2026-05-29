@@ -3,30 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>메모 하세요!</title>
+    <title>Memo</title>
+    <style>
+      /* 전체 공통으로 작동해야하는 태그 수준의 서식 */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      textarea {
+        resize: none;
+      }
+      /* 반복해서 쓰이는 내용은 클래스로 작성 */
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* id로 특정하게 쓸 요소들에 대한 서식 */
+      /* id를 의미하는 선택자 # */
+      #page {
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      #memoWriter {
+        flex-direction: column;
+        gap: 8px;
+        background-color: beige;
+        padding: 16px;
+        border: 1px solid gainsboro;
+        border-radius: 8px;
+      }
+
+      #memoWriter button {
+        padding: 4px 8px;
+        /* margin, padding : 전체 */
+        /* margin, padding : 위 아래 */
+        /* margin, padding : 위 오 아 왼 */
+      }
+    </style>
   </head>
   <body>
-    <section>
-      <!-- 작성  -->
-      <form id="writer" style="display: flex; gap: 8px">
-        <textarea name="text" style="resize: none"></textarea>
-        <button>제출</button>
-      </form>
-    </section>
-    <section id="board">
-      <!-- 작성 결과물 -->
+    <section id="page" class="center">
+      <section id="container">
+        <h1 class = "center">MeMo</h1>
+        <form id="memoWriter" class="center">
+          <textarea name="memo"></textarea>
+          <button>submit</button>
+        </form>
+      </section>
+      <section id = "memoList">
+        <!-- 작성된 메모 배치 -->
+      </section>
     </section>
     <script>
-        const writer = document.querySelector("#writer");
-        writer.addEventListener("submit",() => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const text = formData.get("text");
-            console.log("text", text);
-            const memo = document.createElement("p");
-            memo.textContent = text;
-            board.append(memo);
-        });
+      document.addEventListener("DOMContentLoaded");
+
+      const memoWriter = document.querySelector("#memoWriter");
+      //entry point
+      function main(){
+        console.logg("DOM Loading...");
+        memoWriter.addEventListener("submit", memoWriterHandler);
+      }
+      
+      function memoWriterHandler(event){
+        event.preventDefault();
+      }
+
     </script>
   </body>
 </html>

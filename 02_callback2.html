@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call - back</title>
+</head>
+<body>
+    <button>눌러보시오</button>
+    <script>
+        const a = ["사과","바나나","배"];
+        a.forEach(console.log);//동기적 실행
+        document.querySelector("button")
+            .addEventListener("click",() => console.log("눌렀군요"));//비동기 콜백
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CallBack</title>
+</head>
+<body>
+    <script>
+        console.log("동기 1");
+        setTimeout(() => {
+            console.log("비동기 1");
+        },Math.random() * 1000);
+        setTimeout(() => {
+            console.log("비동기 2");
+            setTimeout(()=>{
+                console.log("비동기 4");
+            })
+        },Math.random() * 1000);
+        setTimeout(() => {
+            console.log("비동기 3");
+        },Math.random() * 1000);
+        console.log("동기 2");
+        console.log("동기 3");
+    </script>
+</body>
+</html>

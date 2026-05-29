@@ -70,7 +70,16 @@ function setItem(){
 
 function renderMemo(memo){
     const li = document.createElement("li");
-    li.textContent = memo.title;
+
+    const memoTitle = document.createElement("div");
+    memoTitle.className = "memo-title";
+    memoTitle.textContent = memo.title;
+
+    const divider = document.createElement("hr");
+    divider.className = "memo-divider";
+
+    const memoActions = document.createElement("div");
+    memoActions.className = "memo-actions";
 
     const openBtn = document.createElement("button");
     openBtn.textContent = "open";
@@ -99,9 +108,13 @@ function renderMemo(memo){
         memoViewer.textContent = "NO MEMO";
     });
     
-    li.append(openBtn);
-    li.append(editBtn);
-    li.append(deleteBtn);
+    memoActions.append(openBtn);
+    memoActions.append(editBtn);
+    memoActions.append(deleteBtn);
+
+    li.append(memoTitle);
+    li.append(divider);
+    li.append(memoActions);
     memoList.append(li);
 }
 
@@ -120,4 +133,3 @@ function updateSaveButton(){
             savebtn.textContent = "save";
         }
 }
-

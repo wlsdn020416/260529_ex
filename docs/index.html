@@ -1,51 +1,42 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memo</title>
-    <style>
-      *{
-        box-sizing: border-box;
-      }      
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      #container {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-
-        /* background-image: url("./img/bg.jpg");
-        background-size: cover;
-        background-position: center; */
-        /* todo : 텍스트 버튼 잘보이게 */
-      }
-    </style>
-  </head>
-  <body>
-    <div
-    id = "container">
-      <h1>Welcome Memo!</h1>
-      <button id = "btn" style="padding: 12px">start</button>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", main);
-
-      const container = document.querySelector("#container");
-      const button = document.querySelector("#container > #btn");
-      function main(){
-        console.log("DOM loading...");
-        button.addEventListener("click",() => {
-          location.href = "memo.html";
-        })
-      }
-    </script>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeMo</title>
+</head>
+<body>
+  <h1>MeMo</h1>
+  <section>
+    <input 
+    id = "titleInput"
+    type="text"
+    placeholder="Title...">
+    <br><br>
+    <textarea 
+    id ="contentInput"
+    type="text"
+    placeholder="Content...">
+    </textarea>
+    <br><br>
+    <button id = "savebtn">save</button>
     
-  </body>
+    <hr>
+
+    <section>
+      <h2>List</h2>
+      <ul id="memoList"></ul>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Content</h2>
+      <div id="memoViewer">
+        NO MEMO
+      </div>
+    </section>
+    <script src="./script.js"></script>
+  </section>
+</body>
 </html>
